@@ -12,6 +12,7 @@ const DefaultLayOut = ({ children }) => {
     JSON.parse(localStorage.getItem("link")) || ["/"]
   );
 
+  // eslint-disable-next-line no-unused-vars
   const [pathname, setPathname] = useState(window.location.pathname);
 
   const BtChange = (newValue) => {
@@ -42,6 +43,7 @@ const DefaultLayOut = ({ children }) => {
       setBack(true);
     }
     navigate(`${history[history.length - 1]}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history]);
 
   useEffect(() => {
@@ -49,6 +51,7 @@ const DefaultLayOut = ({ children }) => {
       setHistory([...history, pathname]);
       localStorage.setItem("link", JSON.stringify(history));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   return (
