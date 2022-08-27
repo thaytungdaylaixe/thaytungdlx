@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "../daylaixe.css";
+import "./layout.css";
 import { useNavigate } from "react-router-dom";
 
-import BtApp from "../BtApp/BtApp";
-import Header from "../Header/Header";
+import BtApp from "./BtApp/BtApp";
+import Header from "./Header/Header";
 
 const DefaultLayOut = ({ children }) => {
   const navigate = useNavigate();
