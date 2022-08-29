@@ -8,9 +8,7 @@ import Header from "./Header/Header";
 const DefaultLayOut = ({ children }) => {
   const navigate = useNavigate();
 
-  const [btNati, setBtNati] = useState(
-    JSON.parse(localStorage.getItem("link")) || ""
-  );
+  const [btNati, setBtNati] = useState(localStorage.getItem("link") || "");
 
   // eslint-disable-next-line no-unused-vars
   const [pathname, setPathname] = useState(window.location.pathname);
