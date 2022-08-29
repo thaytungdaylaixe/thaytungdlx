@@ -10,22 +10,22 @@ import AppsIcon from "@mui/icons-material/Apps";
 export const BtAppData = [
   {
     label: "Home",
-    value: "/",
+    value: "",
     icon: <AppsIcon />,
   },
   {
     label: "Học viên",
-    value: "/hocvien",
+    value: "hocvien",
     icon: <AutoStoriesOutlinedIcon />,
   },
   {
     label: "Lịch thi",
-    value: "/lichthi",
+    value: "lichthi",
     icon: <DirectionsCarFilledOutlinedIcon />,
   },
   {
     label: "TKB",
-    value: "/tkb",
+    value: "tkb",
     icon: <HomeWorkOutlinedIcon />,
   },
 ];

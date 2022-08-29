@@ -8,51 +8,48 @@ import Header from "./Header/Header";
 const DefaultLayOut = ({ children }) => {
   const navigate = useNavigate();
 
-  const [history, setHistory] = useState(
-    JSON.parse(localStorage.getItem("link")) || ["/"]
+  const [btNati, setBtNati] = useState(
+    JSON.parse(localStorage.getItem("link")) || ""
   );
 
   // eslint-disable-next-line no-unused-vars
   const [pathname, setPathname] = useState(window.location.pathname);
 
   const BtChange = (newValue) => {
-    if (newValue !== history[history.length - 1])
-      setHistory([...history, newValue]);
+    setBtNati(newValue);
+    localStorage.setItem("link", newValue);
+    navigate(newValue);
   };
 
+  // eslint-disable-next-line no-unused-vars
   const [back, setBack] = useState(false);
 
   const clickBack = () => {
-    let hist = [...history];
-
-    if (hist.length > 1) {
-      hist.pop();
-      setHistory(hist);
-    }
+    window.history.go(-1);
   };
 
   const clearHistory = () => {
-    setHistory(["/"]);
+    console.log("History");
   };
 
-  useEffect(() => {
-    localStorage.setItem("link", JSON.stringify(history));
+  // useEffect(() => {
+  //   localStorage.setItem("link", JSON.stringify(history));
 
-    setBack(false);
-    if (history.length > 1) {
-      setBack(true);
-    }
-    navigate(`${history[history.length - 1]}`);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [history]);
+  //   setBack(false);
+  //   if (history.length > 1) {
+  //     setBack(true);
+  //   }
+  //   navigate(`${history[history.length - 1]}`);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [history]);
 
-  useEffect(() => {
-    if (pathname !== history[history.length - 1]) {
-      setHistory([...history, pathname]);
-      localStorage.setItem("link", JSON.stringify(history));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  // useEffect(() => {
+  //   if (pathname !== history[history.length - 1]) {
+  //     setHistory([...history, pathname]);
+  //     localStorage.setItem("link", JSON.stringify(history));
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [pathname]);
 
   return (
     <div className="DefaultLayOut">
@@ -67,10 +64,7 @@ const DefaultLayOut = ({ children }) => {
 
       <div className="main">{children}</div>
 
-      <BtApp
-        BtChange={BtChange}
-        value={"/" + history[history.length - 1].split("/")[1]}
-      />
+      <BtApp BtChange={BtChange} value={btNati} />
     </div>
   );
 };
