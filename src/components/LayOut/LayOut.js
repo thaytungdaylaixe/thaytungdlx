@@ -20,14 +20,14 @@ const DefaultLayOut = ({ children }) => {
   };
 
   // eslint-disable-next-line no-unused-vars
-  const [back, setBack] = useState(false);
+  const [back, setBack] = useState(true);
 
   const clickBack = () => {
     window.history.go(-1);
   };
 
   const clearHistory = () => {
-    console.log("History");
+    console.log(window.history.length);
   };
 
   // useEffect(() => {
