@@ -1,53 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./layout.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import BtApp from "./BtApp/BtApp";
 import Header from "./Header/Header";
 
 const DefaultLayOut = ({ children }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const [btNati, setBtNati] = useState(localStorage.getItem("link") || "");
-
-  // eslint-disable-next-line no-unused-vars
-  const [pathname, setPathname] = useState(window.location.pathname);
+  const [history, setHistory] = useState(
+    JSON.parse(localStorage.getItem("link")) || ["/"]
+  );
 
   const BtChange = (newValue) => {
-    setBtNati(newValue);
-    localStorage.setItem("link", newValue);
-    navigate(newValue);
+    if (newValue !== history[history.length - 1]) navigate(newValue);
   };
 
   // eslint-disable-next-line no-unused-vars
-  const [back, setBack] = useState(true);
+  const [back, setBack] = useState(false);
 
   const clickBack = () => {
-    window.history.go(-1);
+    navigate(-1);
   };
 
   const clearHistory = () => {
-    console.log(window.history.length);
+    setHistory(["/"]);
+    navigate("/", { replace: true });
   };
 
-  // useEffect(() => {
-  //   localStorage.setItem("link", JSON.stringify(history));
+  useEffect(() => {
+    if (location.pathname !== history[history.length - 1])
+      setHistory([...history, location.pathname]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
 
-  //   setBack(false);
-  //   if (history.length > 1) {
-  //     setBack(true);
-  //   }
-  //   navigate(`${history[history.length - 1]}`);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [history]);
-
-  // useEffect(() => {
-  //   if (pathname !== history[history.length - 1]) {
-  //     setHistory([...history, pathname]);
-  //     localStorage.setItem("link", JSON.stringify(history));
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [pathname]);
+  useEffect(() => {
+    localStorage.setItem("link", JSON.stringify(history));
+    setBack(false);
+    if (history.length > 1) setBack(true);
+  }, [history]);
 
   return (
     <div className="DefaultLayOut">
@@ -62,7 +54,10 @@ const DefaultLayOut = ({ children }) => {
 
       <div className="main">{children}</div>
 
-      <BtApp BtChange={BtChange} value={btNati} />
+      <BtApp
+        BtChange={BtChange}
+        value={"/" + history.slice(-1)[0].split("/")[1]}
+      />
     </div>
   );
 };
