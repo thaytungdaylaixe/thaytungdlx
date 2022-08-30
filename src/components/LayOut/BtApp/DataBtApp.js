@@ -1,10 +1,8 @@
 import React from "react";
 
-import DirectionsCarFilledOutlinedIcon from "@mui/icons-material/DirectionsCarFilledOutlined";
-
-import HomeWorkOutlinedIcon from "@mui/icons-material/HomeWorkOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
-
+import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
+import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import AppsIcon from "@mui/icons-material/Apps";
 
 export const BtAppData = [
@@ -16,16 +14,16 @@ export const BtAppData = [
   {
     label: "Học viên",
     value: "/hocvien",
-    icon: <AutoStoriesOutlinedIcon />,
+    icon: <PeopleAltOutlinedIcon />,
   },
   {
     label: "Lịch thi",
     value: "/lichthi",
-    icon: <DirectionsCarFilledOutlinedIcon />,
+    icon: <AutoStoriesOutlinedIcon />,
   },
   {
     label: "TKB",
     value: "/tkb",
-    icon: <HomeWorkOutlinedIcon />,
+    icon: <AccessTimeOutlinedIcon />,
   },
 ];

@@ -4,6 +4,9 @@
   background: #f3f3f3;
   position: relative;
   min-height: 100vh;
+  max-width: 800px;
+  margin: auto;
+  position: relative;
 }
 
 .blur {
@@ -16,5 +19,6 @@
 }
 .main {
   position: relative;
-  padding: 10px;
+  height: calc(100vh - 55px);
+  overflow: scroll;
 }

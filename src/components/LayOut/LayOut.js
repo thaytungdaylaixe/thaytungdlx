@@ -21,7 +21,11 @@ const DefaultLayOut = ({ children }) => {
   const [back, setBack] = useState(false);
 
   const clickBack = () => {
-    navigate(-1);
+    navigate(history[history.length - 2]);
+    let hist = [...history];
+
+    hist.splice(hist.length - 1, 1);
+    setHistory(hist);
   };
 
   const clearHistory = () => {
