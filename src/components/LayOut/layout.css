@@ -18,7 +18,8 @@
   filter: blur(72px);
 }
 .main {
+  margin-top: 60px;
   position: relative;
-  height: calc(100vh - 55px);
+  height: calc(100vh - 120px);
   overflow: scroll;
 }

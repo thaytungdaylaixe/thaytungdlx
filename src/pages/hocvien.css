@@ -1,0 +1,26 @@
+.boxHv {
+  margin: 5px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.boxHv .hovaten {
+  font-size: 14px;
+  font-weight: bold;
+  color: grey;
+}
+
+.boxHv .ngaysinh,
+.boxHv .sogiohoc,
+.boxHv .khoathi {
+  font-size: 12px;
+  color: grey;
+}
+
+.boxHv .tel {
+  display: flex;
+  align-items: center;
+}

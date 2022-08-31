@@ -1,12 +1,14 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import uuid from "react-uuid";
 import { useDispatch, useSelector } from "react-redux";
-// import { getDataDlx } from "../../redux/slices/dlxSlice";
+import moment from "moment";
+import { trimText } from "../../utils/valid";
 
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 import "./AddEditHV.css";
+import { addHv } from "../../redux/slices/hvsSlice";
 
 import { Button, Box, Typography } from "@mui/material";
 
@@ -19,12 +21,13 @@ import DateTimeMui from "../form/DateTimeMui";
 import ChildModal from "./ChildModal";
 
 const AddEdit = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { datadlx } = useSelector((state) => ({ ...state }));
+  const { datadlx, dataHvs } = useSelector((state) => ({ ...state }));
 
   const { sanhoc, nguon, truongthi, khoathi } = datadlx;
+  const { hvs } = dataHvs;
 
   const [loadingPage, setLoadingPage] = useState(true);
 
@@ -32,6 +35,10 @@ const AddEdit = () => {
     datadlx && setLoadingPage(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("dataHvs", JSON.stringify(dataHvs));
+  }, [dataHvs]);
 
   const [formValue, setFormValue] = useState({
     sdt: "",
@@ -55,15 +62,42 @@ const AddEdit = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const ValidateForm = await Validate(formValue);
+    setLoadingPage(true);
 
-    console.log(formValue);
+    const dataForm = {
+      ...formValue,
+      _id: uuid(),
+      sdt: trimText(formValue.sdt),
+      hovaten: trimText(formValue.hovaten),
+      sogiohoc: trimText(formValue.sogiohoc),
+      ngaysinh: moment(formValue.ngaysinh).format("DD/MM/YYYY"),
+      ngayvaokhoa: moment(formValue.ngayvaokhoa).format("DD/MM/YYYY"),
+    };
 
-    // if (Object.keys(ValidateForm).length > 0) {
-    //   return setErrors(ValidateForm);
-    // }
+    // : moment(value).format("DD/MM/YYYY")
 
-    // await dispatch(createData({ formValue, navigate, toast }));
+    const ValidateForm = await Validate(dataForm);
+
+    if (Object.keys(ValidateForm).length > 0) {
+      setLoadingPage(false);
+      return setErrors(ValidateForm);
+    }
+
+    const checkSdt = hvs.filter((hv) => {
+      setLoadingPage(false);
+      return hv.sdt === dataForm.sdt;
+    });
+
+    setLoadingPage(false);
+
+    if (checkSdt.length > 0) {
+      setLoadingPage(false);
+      return toast.error("Số điện thoại đã tồn tại.");
+    }
+
+    await dispatch(addHv(dataForm));
+    setLoadingPage(false);
+    navigate("/hocvien");
   };
 
   const [errors, setErrors] = useState({});
@@ -88,6 +122,15 @@ const AddEdit = () => {
     if (name === "cf_password") {
       if (formValue.password !== value) {
         setErrors({ ...errors, [name]: "Mật khẩu không khớp." });
+      }
+    }
+
+    if (name === "sdt") {
+      const checkSdt = hvs.filter((hv) => {
+        return hv.sdt === trimText(value);
+      });
+      if (checkSdt.length > 0) {
+        setErrors({ ...errors, [name]: "Số điện thoại đã tồn tại." });
       }
     }
 

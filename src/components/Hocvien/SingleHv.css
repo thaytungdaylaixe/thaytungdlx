@@ -1,0 +1,28 @@
+.SingleHv {
+  margin: 5px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  color: grey;
+}
+
+.SingleHv .topSingle {
+  width: 100%;
+  text-align: center;
+}
+
+.SingleHv .hovaten {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.SingleHv .sdt {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.SingleHv .groupBtn {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}

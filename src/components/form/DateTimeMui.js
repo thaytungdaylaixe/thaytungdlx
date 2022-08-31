@@ -1,8 +1,10 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
-import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import { MobileDatePicker } from "@mui/x-date-pickers";
 import { InputAdornment } from "@mui/material";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
+
+// moment().format();
 
 const DateTimeMui = (props) => {
   const { name, label, required, valueChange, onInputChange } = props;
@@ -11,7 +13,7 @@ const DateTimeMui = (props) => {
     <MobileDatePicker
       closeOnSelect={true}
       label={label}
-      inputFormat="DD/MM/yyyy"
+      inputFormat="DD/MM/YYYY"
       value={valueChange}
       onChange={(value) => {
         onInputChange({ name, value });

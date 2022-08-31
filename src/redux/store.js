@@ -5,7 +5,11 @@ import DlxReducer from "./slices/dlxSlice";
 
 export default configureStore({
   reducer: {
-    hvs: HvReducer,
+    dataHvs: HvReducer,
     datadlx: DlxReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });

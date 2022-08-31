@@ -57,6 +57,7 @@ const ChildModal = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // eslint-disable-next-line
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
